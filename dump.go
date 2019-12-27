@@ -5,6 +5,7 @@ import (
 	"errors"
 	"os"
 	"path"
+	"fmt"
 	"strings"
 	"text/template"
 	"time"
@@ -142,7 +143,7 @@ func getTables(db *sql.DB) ([]string, error) {
 		if err := rows.Scan(&table); err != nil {
 			return tables, err
 		}
-		tables = append(tables, table.String)
+		tables = append(tables, fmt.Sprintf("`%v`", table.String))
 	}
 	return tables, rows.Err()
 }
